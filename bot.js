@@ -1,5 +1,6 @@
 const { Telegraf } = require('telegraf')
 const TOKEN = "1276256518:AAFs2oLkJr5__62VU9Aalq16N8mCycVbyp0";
+const PORT = process.env.PORT || 3000;
 const bot = new Telegraf(TOKEN);
 
 
@@ -11,4 +12,6 @@ bot.command('/image', (ctx) => {
     ctx.telegram.sendPhoto(id, url, {caption: 'Tu nueva imageb'});
 });
 
-bot.launch()
+bot.launch({
+    webhook:{port:PORT}
+})
