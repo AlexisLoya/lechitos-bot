@@ -1,9 +1,21 @@
 const { Telegraf } = require('telegraf')
 const TOKEN = "1276256518:AAFs2oLkJr5__62VU9Aalq16N8mCycVbyp0";
 const PORT = process.env.PORT || 3000;
+const express = require("express");
+
+//Express 
+const expressApp = express();
+
+expressApp.get("/", (req, res) => {
+    res.send("Working...");
+});
+
+expressApp.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});
+
+//Chatbot
 const bot = new Telegraf(TOKEN);
-
-
 bot.start((ctx) => ctx.reply('Welcome to lechitos'));
 
 bot.command('/image', (ctx) => {
@@ -12,9 +24,4 @@ bot.command('/image', (ctx) => {
     ctx.telegram.sendPhoto(id, url, { caption: 'Tu nueva imageb' });
 });
 
-bot.launch({
-    webhook: {
-        port: PORT,
-        hookPath: "https://lechitos-bot.herokuapp.com"
-    }
-})
+bot.launch()
